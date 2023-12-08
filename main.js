@@ -1,4 +1,6 @@
-import { Modal } from "./modal.js"
+import { Modal } from "./modal.js";
+import { AlertError } from "./alert-error.js";
+import { IMC, notANumber } from "./utils.js";
 
 let form = document.querySelector('form');
 let weightInput = document.querySelector('#weight');
@@ -13,6 +15,15 @@ form.onsubmit = (event) =>{
 
     const weight = weightInput.value;
     const heigth = heightInput.value;
+
+    const weightOrHeightIsNotANumber = notANumber(weight) || notANumber(heigth)
+
+    if(weightOrHeightIsNotANumber){
+        AlertError.open()
+        return;
+    }
+
+    AlertError.close()
     
 
     let result = IMC(weight, heigth);
@@ -22,6 +33,8 @@ form.onsubmit = (event) =>{
     Modal.open();
 }
 
-function IMC(weight, heigth){
-    return (weight / ((heigth / 100) **2)).toFixed(2)
-}
+
+// fechar a janela de erro se estiver na tela
+
+weightInput.oninput = () => AlertError.close();
+heightInput.oninput = () => AlertError.close();

@@ -13,3 +13,15 @@ export const Modal = {
 Modal.closeBtn.onclick = function(){
     Modal.close();
 }
+
+
+
+// fechando modal pela tecla esc
+
+window.addEventListener('keydown', handleEscapeKey)
+function handleEscapeKey(event){
+    if(event.key === 'Escape'){
+        Modal.close()
+    }
+}
+
